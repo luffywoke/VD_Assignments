@@ -2,20 +2,31 @@ using UnityEngine;
 
 public class Finish : MonoBehaviour
 {
-    private GameObject[] finishLine;
-    private GameObject[] spheres;
+    private Rigidbody rb;
+    public Transform respawnPoint;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+   
     void Start()
     {
-        finishLine = GameObject.FindGameObjectsWithTag("Finish");
-        spheres = GameObject.FindGameObjectsWithTag("Sphere");
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+
+        if (other.gameObject.tag == "Finish")
+        {
+            Debug.Log("You win!");
+            // Move the player back to the respawn point
+            rb.isKinematic = true;
+            transform.position = respawnPoint.position;
+            rb.isKinematic = false;
+
+        }
     }
+
+
 }
