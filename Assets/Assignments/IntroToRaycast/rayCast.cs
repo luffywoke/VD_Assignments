@@ -27,6 +27,7 @@ public class rayCast : MonoBehaviour
                 pickupSystem.UpdatePickupPosition(holdPosition);
             }
 
+            // Use Q to drop
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 pickupSystem.Drop();
@@ -39,6 +40,7 @@ public class rayCast : MonoBehaviour
             {
                 currentHit = hit;
 
+                // Use E to pick up 
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     if (IsInLayerMask(hit.collider.gameObject, pickupLayer))
