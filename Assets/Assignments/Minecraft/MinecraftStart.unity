@@ -353,8 +353,8 @@ Transform:
   m_GameObject: {fileID: 1036382403}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.57228, y: 0, z: -1.25738}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.761, y: -0, z: 2.3975}
+  m_LocalScale: {x: 2.5429409, y: 1, z: 2.0601776}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -722,7 +722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::rigidbodyController
   speed: 5
-  sensitivity: 0.5
+  sensitivity: 0.35
   smoothSpeed: 5
 --- !u!114 &2104245622
 MonoBehaviour:
@@ -841,6 +841,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3e9846f6-d8c5-428b-923a-dd8325c60c35
     m_ActionName: 'Player/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2104245621}
+        m_TargetAssemblyTypeName: rigidbodyController, Assembly-CSharp
+        m_MethodName: onSprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e34df8e1-a040-459b-8e03-6d1f5be383d3
+    m_ActionName: 'Player/Sprint[/Keyboard/shift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

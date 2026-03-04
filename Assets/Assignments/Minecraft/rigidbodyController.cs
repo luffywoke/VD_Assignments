@@ -8,8 +8,10 @@ public class rigidbodyController : MonoBehaviour
     private Vector2 move, look;
     private bool grounded;
     private Camera MainCamera;
-    public float sensitivity = 5f;
+    public float sensitivity = 0.35f;
     public float smoothSpeed = 10f;
+    
+
 
     private float targetRotation; 
     private float currentRotation;
@@ -29,7 +31,19 @@ public class rigidbodyController : MonoBehaviour
     {
         Jump();
     }
-    
+
+    public void onSprint(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Sprint();
+        }
+        else if (context.canceled)
+        {
+            speed = 5f;
+        }
+    }
+
 
     private void FixedUpdate()
     {
@@ -50,13 +64,20 @@ public class rigidbodyController : MonoBehaviour
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
     }
 
+    void Sprint()
+    {
+        speed = speed * 1.5f;
+    }
+
+    
+
     void Jump()
     {
         Vector3 jumpForces = Vector3.zero;
 
         if (grounded)
         {
-            jumpForces.y = 5f;
+            jumpForces.y = 2f;
             
         }
 
@@ -73,6 +94,7 @@ public class rigidbodyController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         MainCamera = Camera.main;
         
+        //Hiding cursor and locking to center of screen
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
