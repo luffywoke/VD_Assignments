@@ -6,10 +6,15 @@ public class rigidbodyController : MonoBehaviour
     private Rigidbody rb;
     public float speed = 5f;
     private Vector2 move, look;
-    private float lookRotation;
+    private bool grounded;
     private Camera MainCamera;
+    public float sensitivity = 5f;
+    public float smoothSpeed = 10f;
 
-    
+    private float targetRotation; 
+    private float currentRotation;
+
+
     public void OnMove(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
@@ -18,6 +23,11 @@ public class rigidbodyController : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         look = context.ReadValue<Vector2>();
+    }
+
+    public void onJump(InputAction.CallbackContext context)
+    {
+        Jump();
     }
     
 
@@ -39,6 +49,19 @@ public class rigidbodyController : MonoBehaviour
 
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
     }
+
+    void Jump()
+    {
+        Vector3 jumpForces = Vector3.zero;
+
+        if (grounded)
+        {
+            jumpForces.y = 5f;
+            
+        }
+
+        rb.AddForce(jumpForces, ForceMode.VelocityChange);
+    }
     
     
 
@@ -50,17 +73,25 @@ public class rigidbodyController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         MainCamera = Camera.main;
         
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    // Update is called once per frame
+    
     void LateUpdate()
     {
         //Turn player based on mouse movement
-        transform.Rotate(Vector3.up * look.x * Time.deltaTime * 50);
+        transform.Rotate(Vector3.up * look.x * sensitivity);
 
-        lookRotation += (-look.y * Time.deltaTime * 50);
-        lookRotation = Mathf.Clamp(lookRotation, -90, 90);
-        MainCamera.transform.eulerAngles = new Vector3(lookRotation, MainCamera.transform.eulerAngles.y, MainCamera.transform.eulerAngles.z);
+        targetRotation += (-look.y * sensitivity);
+        targetRotation = Mathf.Clamp(targetRotation, -90, 90);
+
+        currentRotation = Mathf.Lerp(currentRotation, targetRotation, Time.deltaTime * smoothSpeed);
+        MainCamera.transform.localEulerAngles = new Vector3(currentRotation, 0f, 0f);
+    }
+
+    public void SetGrounded(bool state)
+    {
+        grounded = state;
     }
 }
