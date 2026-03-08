@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Cube
   - Obstacle
+  - Block
+  - Ground
   layers:
   - Default
   - TransparentFX
