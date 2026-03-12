@@ -4,9 +4,8 @@ using UnityEngine.InputSystem;
 
 public class destroyAndPlace : MonoBehaviour
 {
-    public GameObject blockPrefab; // Reference to the block prefab
-    public float gridCellSize = 1f; // Size of each grid cell
-
+    public Material blockMaterial;
+    public float gridCellSize = 1f;
 
     public void OnBreak(InputAction.CallbackContext context)
     {
@@ -30,13 +29,10 @@ public class destroyAndPlace : MonoBehaviour
         }
     }
 
-    
-
     bool performRayCast(out RaycastHit hit)
     {
         Vector2 mousePos = Mouse.current.position.ReadValue();
-
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         return Physics.Raycast(ray, out hit, 100f);
     }
 
@@ -53,6 +49,15 @@ public class destroyAndPlace : MonoBehaviour
         spawnPos.y = Mathf.Round(spawnPos.y / gridCellSize) * gridCellSize;
         spawnPos.z = Mathf.Round(spawnPos.z / gridCellSize) * gridCellSize;
 
-        Instantiate(blockPrefab, spawnPos, Quaternion.identity);
+        GameObject cube = new GameObject("Block");
+        cube.transform.position = spawnPos;
+
+        cube.AddComponent<BoxCollider>();
+
+        MeshFilter mf = cube.AddComponent<MeshFilter>();
+        mf.mesh = MeshGenerate.CreateCubeMesh();
+
+        MeshRenderer mr = cube.AddComponent<MeshRenderer>();
+        mr.material = blockMaterial;
     }
 }
