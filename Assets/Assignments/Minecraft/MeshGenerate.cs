@@ -1,12 +1,19 @@
 using UnityEngine;
 
-
-[RequireComponent(typeof(MeshFilter))]
 public class MeshGenerate : MonoBehaviour
 {
-    public static Mesh CreateCubeMesh()
+    public static Mesh CreateCubeMesh(Vector2 textureOffset)
     {
         Mesh mesh = new Mesh();
+
+        float x = textureOffset.x;
+        float y = textureOffset.y;
+        float t = 0.0625f; // one texture size in UV space
+
+        Vector2 bottomLeft = new Vector2(x, y);
+        Vector2 bottomRight = new Vector2(x + t, y);
+        Vector2 topLeft = new Vector2(x, y + t);
+        Vector2 topRight = new Vector2(x + t, y + t);
 
         Vector3[] vertices = new Vector3[]
         {
@@ -74,12 +81,45 @@ public class MeshGenerate : MonoBehaviour
             20, 22, 23,
         };
 
+        // Same UV layout applied to every face
+        Vector2[] uvs = new Vector2[]
+        {
+            // Bottom
+            bottomLeft, bottomRight, topRight, topLeft,
+
+            // Top
+            bottomLeft, bottomRight, topRight, topLeft,
+
+            // Front
+            bottomLeft, bottomRight, topRight, topLeft,
+
+            // Back
+            bottomLeft, bottomRight, topRight, topLeft,
+
+            // Left
+            bottomLeft, bottomRight, topRight, topLeft,
+
+            // Right
+            bottomLeft, bottomRight, topRight, topLeft,
+        };
+
         mesh.vertices = vertices;
         mesh.triangles = triangles;
+        mesh.uv = uvs;
         mesh.RecalculateNormals();
 
         return mesh;
     }
 
+    public static Mesh CreateDirtMesh()
+    {
+        // column 2, row 15 (flipped from top row 0)
+        return CreateCubeMesh(new Vector2(2 * 0.0625f, 15 * 0.0625f));
+    }
 
+    public static Mesh CreateGrassMesh()
+    {
+        // column 0, row 15 (flipped from top row 0)
+        return CreateCubeMesh(new Vector2(0 * 0.0625f, 15 * 0.0625f));
+    }
 }

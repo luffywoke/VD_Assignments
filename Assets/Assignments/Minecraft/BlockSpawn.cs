@@ -14,7 +14,8 @@ public class BlockSpawn : MonoBehaviour
 
     void blockSpawn()
     {
-        Mesh cubeMesh = MeshGenerate.CreateCubeMesh();
+        Mesh dirtMesh = MeshGenerate.CreateDirtMesh(); // *
+        Mesh grassMesh = MeshGenerate.CreateGrassMesh(); // *
 
         for (int x = 0; x < gridWidth; x++)
         {
@@ -22,13 +23,15 @@ public class BlockSpawn : MonoBehaviour
             {
                 Vector3 spawnPos = new Vector3(x * gridCellSize, 0, y * gridCellSize);
 
+                Mesh meshToUse = (x + y) % 2 == 0 ? dirtMesh : grassMesh;
+
                 GameObject cube = new GameObject("Block_" + x + "_" + y);
                 cube.transform.position = spawnPos;
 
                 cube.AddComponent<BoxCollider>();
 
                 MeshFilter mf = cube.AddComponent<MeshFilter>();
-                mf.mesh = cubeMesh;
+                mf.mesh = meshToUse;
 
                 MeshRenderer mr = cube.AddComponent<MeshRenderer>();
                 mr.material = blockMaterial;

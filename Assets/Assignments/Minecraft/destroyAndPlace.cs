@@ -7,6 +7,17 @@ public class destroyAndPlace : MonoBehaviour
     public Material blockMaterial;
     public float gridCellSize = 1f;
 
+    public enum BlockType { Dirt, Grass } // *
+    public BlockType selectedBlock = BlockType.Dirt; // *
+
+    private Mesh dirtMesh; // *
+    
+
+    void Start() // *
+    { // *
+        dirtMesh = MeshGenerate.CreateDirtMesh(); // *
+    } // *
+
     public void OnBreak(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -55,7 +66,7 @@ public class destroyAndPlace : MonoBehaviour
         cube.AddComponent<BoxCollider>();
 
         MeshFilter mf = cube.AddComponent<MeshFilter>();
-        mf.mesh = MeshGenerate.CreateCubeMesh();
+        mf.mesh = dirtMesh;
 
         MeshRenderer mr = cube.AddComponent<MeshRenderer>();
         mr.material = blockMaterial;
