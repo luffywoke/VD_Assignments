@@ -70,5 +70,8 @@ public class destroyAndPlace : MonoBehaviour
 
         MeshRenderer mr = cube.AddComponent<MeshRenderer>();
         mr.material = blockMaterial;
+
+        Vector3Int gridKey = Worldregistry.ToGrid(spawnPos);
+        Worldregistry.Instance.RegisterBlock(gridKey, cube);
     }
 }
