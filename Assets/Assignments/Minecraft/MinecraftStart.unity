@@ -576,7 +576,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71116f6fb2c56734e96abd9d0b3ef648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlockSpawn
+  gridWidth: 5
+  gridDepth: 20
+  baseHeight: 4
+  maxHeightVariation: 6
+  seed: 42
+  noiseScale: 0.3
   blockMaterial: {fileID: 2100000, guid: 5bc45ed589ace1445aa01c5762d021f4, type: 2}
+  player: {fileID: 2104245620}
 --- !u!4 &834830461
 Transform:
   m_ObjectHideFlags: 0

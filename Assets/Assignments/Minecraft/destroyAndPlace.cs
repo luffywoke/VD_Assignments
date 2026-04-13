@@ -42,8 +42,9 @@ public class destroyAndPlace : MonoBehaviour
 
     bool performRayCast(out RaycastHit hit)
     {
-        Vector2 mousePos = Mouse.current.position.ReadValue();
+        
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
         return Physics.Raycast(ray, out hit, 100f);
     }
 
