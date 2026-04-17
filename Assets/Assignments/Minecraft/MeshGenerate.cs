@@ -126,4 +126,14 @@ public class MeshGenerate : MonoBehaviour
     {
         return CreateCubeMesh(new Vector2(1 * 0.0625f, 15 * 0.0625f));
     }
+
+    public static Mesh CreateLogMesh()
+    {
+        return CreateCubeMesh(new Vector2(4 * 0.0625f, 14 * 0.0625f));
+    }
+
+    public static Mesh CreateLeafMesh()
+    {
+        return CreateCubeMesh(new Vector2(4 * 0.0625f, 12 * 0.0625f));
+    }
 }
